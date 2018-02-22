@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="ViewLib.EditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:ViewModelLib="clr-namespace:ViewModelLib.PropertyViewModels;assembly=ViewModelLib"
+             xmlns:local="clr-namespace:ViewLib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+		<local:NotConverter x:Key="notConverter"/>
+		
+		<DataTemplate DataType="{x:Type ViewModelLib:Int32PropertyViewModel}">
+			<TextBox Text="{Binding Value}"/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type ViewModelLib:NullableInt32PropertyViewModel}">
+			<TextBox Text="{Binding Value}"/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type ViewModelLib:StringPropertyViewModel}">
+			<TextBox Text="{Binding Value}"/>
+		</DataTemplate>
+	</UserControl.Resources>
+	
+	<ItemsControl ItemsSource="{Binding}" Grid.IsSharedSizeScope="True">
+		<ItemsControl.ItemTemplate>
+			<DataTemplate DataType="{x:Type ViewModelLib:PropertyViewModel}">
+				<Grid Margin="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" SharedSizeGroup="Header"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+						<local:BulletHeaderView DataContext="{Binding Header}"/>
+						<TextBlock Text=" *" FontWeight="Bold" Foreground="Red" Visibility="{Binding IsMandatory,Converter={StaticResource boolToVisibilityConverter}}"/>
+					</StackPanel>
+
+					<DockPanel Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center">
+						<Button DockPanel.Dock="Right" Margin="2,0,0,0" Command="{Binding ClearCommand}"  ToolTip="Clear" Visibility="{Binding IsNullable,Converter={StaticResource boolToVisibilityConverter}}" >
+							<Image Source="Images/cross.png" Stretch="None" />
+						</Button>
+						<Button IsEnabled="{Binding IsReadOnly,Converter={StaticResource notConverter}}" DockPanel.Dock="Right" Margin="2,0,0,0" Command="{Binding EditCommand}"  ToolTip="Edit" Visibility="{Binding IsLocked,Converter={StaticResource boolToVisibilityConverter}}" >
+							<Image Source="Images/pencil.png" Stretch="None" />
+						</Button>
+						<ContentPresenter IsEnabled="{Binding IsLocked,Converter={StaticResource notConverter}}" Content="{Binding}"/>
+					</DockPanel>
+				</Grid>
+			</DataTemplate>
+		</ItemsControl.ItemTemplate>
+	</ItemsControl>
+</UserControl>
