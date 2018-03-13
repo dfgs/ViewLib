@@ -44,15 +44,15 @@ namespace ViewLib
 			InitializeComponent();
 		}
 
-		private bool OnEditViewModel(IEnumerable<PropertyViewModel> Properties)
+		private bool OnEditViewModel(IPropertyViewModelCollection Properties)
 		{
 			EditWindow editWindow;
 
-			editWindow = new EditWindow() { Owner = Application.Current.MainWindow, DataContext = Properties };
+			editWindow = new EditWindow() { Owner = Application.Current.MainWindow, PropertyViewModelCollection = Properties };
 			return editWindow.ShowDialog() ?? false;
 		}
 
-		private bool OnRemoveViewModel(IEnumerable<PropertyViewModel> Properties)
+		private bool OnRemoveViewModel(IPropertyViewModelCollection Properties)
 		{
 			if (!ShowRemoveDialog) return true;
 			return MessageBox.Show(Application.Current.MainWindow, "Do you want to delete this item(s)", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes;

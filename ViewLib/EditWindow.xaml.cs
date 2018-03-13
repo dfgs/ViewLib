@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ViewModelLib.PropertyViewModels;
 
 namespace ViewLib
 {
@@ -19,6 +20,14 @@ namespace ViewLib
 	/// </summary>
 	public partial class EditWindow : Window
 	{
+
+		public static readonly DependencyProperty PropertyViewModelCollectionProperty = DependencyProperty.Register("PropertyViewModelCollection", typeof(IPropertyViewModelCollection), typeof(EditWindow));
+		public IPropertyViewModelCollection PropertyViewModelCollection
+		{
+			get { return (IPropertyViewModelCollection)GetValue(PropertyViewModelCollectionProperty); }
+			set { SetValue(PropertyViewModelCollectionProperty, value); }
+		}
+
 		public EditWindow()
 		{
 			InitializeComponent();
@@ -26,7 +35,7 @@ namespace ViewLib
 
 		private void OKCommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
-			e.CanExecute = true; e.Handled = true;
+			e.CanExecute = PropertyViewModelCollection?.CanWriteComponents()??false; e.Handled = true;
 
 		}
 

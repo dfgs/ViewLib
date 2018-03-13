@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewLib"
-        mc:Ignorable="d"
+        mc:Ignorable="d" x:Name="root"
 		WindowStartupLocation="CenterOwner" ResizeMode="NoResize" SizeToContent="Height"
         Title="Edit" Width="350" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 
@@ -29,7 +29,7 @@
 			<Button Margin="4" Content="OK" Width="80" Command="{StaticResource ok}"/>
 			<Button Margin="4" Content="Cancel" Width="80" Command="{StaticResource cancel}"/>
 		</StackPanel>
-		<local:EditControl/>
+		<local:EditControl PropertyViewModelCollection="{Binding ElementName=root,Path=PropertyViewModelCollection}"/>
 	</DockPanel>
 	
 </Window>

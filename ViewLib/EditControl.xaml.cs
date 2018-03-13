@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModelLib.PropertyViewModels;
 
 namespace ViewLib
 {
@@ -20,6 +21,14 @@ namespace ViewLib
 	/// </summary>
 	public partial class EditControl : UserControl
 	{
+
+		public static readonly DependencyProperty PropertyViewModelCollectionProperty = DependencyProperty.Register("PropertyViewModelCollection", typeof(IPropertyViewModelCollection), typeof(EditControl));
+		public IPropertyViewModelCollection PropertyViewModelCollection
+		{
+			get { return (IPropertyViewModelCollection)GetValue(PropertyViewModelCollectionProperty); }
+			set { SetValue(PropertyViewModelCollectionProperty, value); }
+		}
+
 		public EditControl()
 		{
 			InitializeComponent();

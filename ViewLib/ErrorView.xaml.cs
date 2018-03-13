@@ -21,7 +21,7 @@ namespace ViewLib
 	/// </summary>
 	public partial class ErrorView : UserControl
 	{
-		public static readonly DependencyProperty ErrorMessageProperty = DependencyProperty.Register("ErrorMessage", typeof(string), typeof(ErrorView));
+		public static readonly DependencyProperty ErrorMessageProperty = DependencyProperty.Register("ErrorMessage", typeof(string), typeof(ErrorView),new FrameworkPropertyMetadata(null,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 		public string ErrorMessage
 		{
 			get { return (string)GetValue(ErrorMessageProperty); }

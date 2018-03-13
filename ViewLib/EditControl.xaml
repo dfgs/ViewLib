@@ -5,24 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:ViewModelLib="clr-namespace:ViewModelLib.PropertyViewModels;assembly=ViewModelLib"
              xmlns:local="clr-namespace:ViewLib"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="root"
              d:DesignHeight="300" d:DesignWidth="300">
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="boolToVisibilityConverter"/>
 		<local:NotConverter x:Key="notConverter"/>
+
+		<Style TargetType="{x:Type ComboBox}" x:Key="comboBoxStyle">
+			<Setter Property="IsEditable" Value="{Binding IsEditable}"/>
+			<Setter Property="DisplayMemberPath" Value="{Binding DisplayMemberPath}"/>
+			<Setter Property="SelectedValuePath" Value="{Binding SelectedValuePath}"/>
+			<Setter Property="SelectedValue" Value="{Binding Value}"/>
+			<Style.Triggers>
+				<Trigger Property="ItemsSource" Value="{x:Null}">
+					<Setter Property="Text" Value="{Binding Value}"/>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
 		
 		<DataTemplate DataType="{x:Type ViewModelLib:Int32PropertyViewModel}">
-			<TextBox Text="{Binding Value}"/>
+			<ComboBox Style="{StaticResource comboBoxStyle}" ItemsSource="{local:AllowedValues}"/>
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type ViewModelLib:NullableInt32PropertyViewModel}">
-			<TextBox Text="{Binding Value}"/>
+			<ComboBox Style="{StaticResource comboBoxStyle}" ItemsSource="{local:AllowedValues}"/>
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type ViewModelLib:StringPropertyViewModel}">
-			<TextBox Text="{Binding Value}"/>
+			<ComboBox Style="{StaticResource comboBoxStyle}" ItemsSource="{local:AllowedValues}"/>
 		</DataTemplate>
+		
 	</UserControl.Resources>
 	
-	<ItemsControl ItemsSource="{Binding}" Grid.IsSharedSizeScope="True">
+	<ItemsControl ItemsSource="{Binding ElementName=root,Path=PropertyViewModelCollection}" Grid.IsSharedSizeScope="True">
 		<ItemsControl.ItemTemplate>
 			<DataTemplate DataType="{x:Type ViewModelLib:PropertyViewModel}">
 				<Grid Margin="2">

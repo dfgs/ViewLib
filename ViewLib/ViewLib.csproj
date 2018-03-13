@@ -47,6 +47,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllowedValuesExtension.cs" />
+    <Compile Include="SortAdorner.cs" />
+    <Compile Include="Sorter.cs" />
+    <Compile Include="Sort.cs" />
+    <Compile Include="TagView.xaml.cs">
+      <DependentUpon>TagView.xaml</DependentUpon>
+    </Compile>
     <Page Include="BulletHeaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +83,10 @@
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="ErrorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TagView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
